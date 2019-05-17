@@ -26,6 +26,6 @@
 	<!-- Bean 설정을 annotation으로 하겠다.(@Controller에 auto scanning) -->
 	<context:annotation-config />
 	<!-- Controller Scanning하는 Base-package를 지정해주는 것. 추후 패키지 변경 시 꼭 참고 -->
-	<context:component-scan base-package="com.cafe24.mysite.controller" />
+	<context:component-scan base-package="com.cafe24.mysite.controller, com.cafe24.mysite.exception" />
 
 </beans>

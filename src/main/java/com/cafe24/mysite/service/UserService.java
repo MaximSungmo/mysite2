@@ -19,6 +19,16 @@ public class UserService {
 	public UserVo getUser(UserVo userVo) {
 		return userDao.get(userVo.getEmail(), userVo.getPassword());
 	}
+	
+	public UserVo getUser(Long no) {
+		return userDao.get(no);
+	}
+	
+	public boolean update(UserVo userVo) {
+		return userDao.update(userVo);
+	}
+	
+	
 //
 //	public UserVo getUser(Long userNo) {
 //		return u

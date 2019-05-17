@@ -15,6 +15,13 @@ public class UserVo {
 		this.email=email;
 		this.password=password;
 	}
+	public UserVo(Long no, String name, String password, String gender) {
+		this.no=no;
+		this.name=name;		
+		this.password=password;
+		this.gender=gender;
+
+	}
 	
 	public Long getNo() {
 		return no;

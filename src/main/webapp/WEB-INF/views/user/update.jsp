@@ -18,8 +18,7 @@
 		<jsp:include page="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="user">
-				<form id="join-form" name="joinForm" method="post"	action="${pageContext.servletContext.contextPath}/user?">
-					<input type="hidden" name="a" value="update"> 
+				<form id="join-form" name="joinForm" method="post"	action="${pageContext.servletContext.contextPath}">
 					<label class="block-label" for="name">이름</label>
 					<input id="name" name="name" type="text" value="${userVo.name }"> 
 					<label class="block-label" for="email">이메일</label> 
@@ -31,13 +30,13 @@
 					<fieldset>
 						<legend>성별</legend>
 						<c:choose>
-							<c:when test="${userVo.gender eq 'female')">
+							<c:when test='${userVo.gender eq "female"}'>
 								<label>여</label> 						
 								<input type="radio" name="gender" value="female" checked="checked"> 
 								<label>남</label>
 								<input type="radio"	name="gender" value="male">
 							</c:when>
-							<c:when test="${userVo.gender eq 'male')">					
+							<c:when test='${userVo.gender eq "male"}'>					
 								<label>여</label> 
 								<input type="radio" name="gender" value="female"> 						
 								<label>남</label> 						

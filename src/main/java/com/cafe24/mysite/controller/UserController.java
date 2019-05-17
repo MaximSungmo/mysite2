@@ -5,12 +5,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafe24.mysite.dao.UserDao;
+import com.cafe24.mysite.exception.UserDaoException;
 import com.cafe24.mysite.service.UserService;
 import com.cafe24.mysite.vo.UserVo;
 
@@ -65,6 +67,35 @@ public class UserController {
 		session.removeAttribute("authUser");
 		session.invalidate();
 		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/update", method=RequestMethod.GET)
+	public String update(
+			HttpSession session, 
+			Model model
+	) {
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		if(authUser == null) {
+			return "redirect:/";
+		}
+		
+		UserVo userVo = userService.getUser(authUser.getNo());
+		model.addAttribute("userVo", userVo);
+		return "user/update";
+	}
+	
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public String update(
+			@RequestParam("name") String name,
+			@RequestParam("password") String password,
+			@RequestParam("gender") String gender,
+			@RequestParam("no") long no,
+			Model model
+	) {		
+		
+		
+		userService.update(new UserVo(no, name, password, gender));
+		return "redirect:/user/update";
 	}
 	
 	

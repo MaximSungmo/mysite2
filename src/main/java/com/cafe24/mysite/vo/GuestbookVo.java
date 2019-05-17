@@ -6,6 +6,20 @@ public class GuestbookVo {
 	private String password;
 	private String contents;
 	private String regDate;
+	
+	public GuestbookVo() {
+		
+	}
+	public GuestbookVo(String name, String password, String contents) {
+		this.name=name;
+		this.password = password;
+		this.contents = contents;
+	}
+	public GuestbookVo(Long no, String password) {
+		this.no=no;
+		this.password = password;
+	}
+	
 	public Long getNo() {
 		return no;
 	}
