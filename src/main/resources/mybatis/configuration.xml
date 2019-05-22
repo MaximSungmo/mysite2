@@ -7,13 +7,19 @@
 		<!-- 맵퍼의 alias로 설정해준 Vo를 참조함 -->
 		<typeAlias alias="uservo" type="com.cafe24.mysite.vo.UserVo"/>
     	<typeAlias alias="guestbookvo" type="com.cafe24.mysite.vo.GuestbookVo"/>
-    
-    
-    
+    	<typeAlias alias="boardvo" type="com.cafe24.mysite.vo.BoardVo"/>
+    	<typeAlias alias="pagevo" type="com.cafe24.mysite.vo.PageVo"/>
+    	
+
     </typeAliases>	
+    
 	<mappers>
 		<mapper resource="mybatis/mapper/user.xml" />
 		<mapper resource="mybatis/mapper/guestbook.xml" />
+		<mapper resource="mybatis/mapper/board.xml" />
+		
+		
 		
 	</mappers>
+	
 </configuration>

@@ -12,8 +12,10 @@ import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StopWatch;
 
 import com.cafe24.mysite.exception.UserDaoException;
+import com.cafe24.mysite.vo.BoardVo;
 import com.cafe24.mysite.vo.GuestbookVo;
 import com.cafe24.mysite.vo.UserVo;
 
@@ -27,8 +29,13 @@ public class UserDao {
 	private SqlSession sqlSession;
 	
 	public UserVo get(Long no) {
-		return sqlSession.selectOne("user.getByNo",no);
+		return sqlSession.selectOne("user.getByNo", no);
 	}
+	
+	public UserVo get(String email) {
+		return sqlSession.selectOne("user.getByEmail",email);
+	}
+	
 
 	public UserVo get(String email, String password) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -41,45 +48,8 @@ public class UserDao {
 
 	public Boolean insert(UserVo vo) {
 		int count = sqlSession.insert("user.insert", vo);
-		System.out.println(vo);
 		return 1 == count;
-	}
-
-	public Boolean delete(GuestbookVo vo) {
-		Boolean result = false;
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		try {
-			conn = dataSource.getConnection();
-
-			String sql = "delete from guestbook where no=? and password=?";
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setLong(1, vo.getNo());
-			pstmt.setString(2, vo.getPassword());
-
-			int count = pstmt.executeUpdate();
-			result = (count == 1);
-
-		} catch (SQLException e) {
-			System.out.println("error" + e);
-		} finally {
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
-	}
-	
+	}	
 	
 	
 	public boolean update(UserVo vo) {		
