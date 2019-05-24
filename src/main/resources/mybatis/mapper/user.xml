@@ -38,11 +38,10 @@
 		]]>
 		
 		<if test="password != ''">
-			password=#{password }
-		
+			password=#{password },
 		</if>
 		<![CDATA[
-			geneder=#{gender}
+			gender=#{gender}
 			where no = #{no} 
 		]]>	
 	</update>

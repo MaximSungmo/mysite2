@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <title>mysite</title>
@@ -17,7 +17,6 @@
 		<div id="content">
 			<div id="board">
 				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath}/board/write">
-					<input type = "hidden" name = "a" value="write">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>
@@ -45,7 +44,7 @@
 			</div>
 		</div>
 		<c:import url='/WEB-INF/views/includes/navigation.jsp'>
-			<c:param name="menu" value="main"/>
+			<c:param name="menu" value="board"/>
 		</c:import>
 		
 		<c:import url='/WEB-INF/views/includes/footer.jsp'/>

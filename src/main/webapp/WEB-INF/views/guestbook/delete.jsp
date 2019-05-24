@@ -15,7 +15,8 @@
 		<div id="content">
 			<div id="guestbook" class="delete-form">
 				<form method="post" action="${pageContext.servletContext.contextPath }/guestbook/delete">
-					<input type='hidden' name="no" value="${no }">
+					<input type='hidden' name="no" value="${no }">	
+					
 					<label>비밀번호</label>
 					<input type="password" name="password">
 					<input type="submit" value="확인">

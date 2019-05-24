@@ -7,16 +7,27 @@ public class PageVo {
 	private int endContentNo;
 	private int totalContentCount;
 	private int contentPerPage;
-	
-	public PageVo(int pageNo, int startContentNo, int endContentNo, int totalContentCount, int contentPerPage) {
-		this.pageNo = pageNo;
-		this.startContentNo = startContentNo;
+	private int totalPageNo;
+
+	public PageVo(int pageNo, int contentPerPage, int totalContentCount) {
 		this.contentPerPage = contentPerPage; 
 		this.totalContentCount = totalContentCount;
-		if(totalContentCount > startContentNo + contentPerPage) {
-			this.endContentNo = totalContentCount;
+		this.totalPageNo =  (totalContentCount/contentPerPage) + 1; 
+		if(pageNo < 1) {
+			this.pageNo=1;
 		}
-		this.endContentNo= startContentNo + contentPerPage;
+		else if(pageNo > totalPageNo) {
+			this.pageNo = totalPageNo;
+		}else {
+			this.pageNo=pageNo;
+		}
+		this.startContentNo = (this.pageNo-1)*contentPerPage;
+
+		if(totalContentCount < startContentNo + contentPerPage) {
+			this.endContentNo = totalContentCount;
+		}else {
+			this.endContentNo= startContentNo + contentPerPage;
+		}
 	}
 
 	public int getPageNo() {
@@ -24,8 +35,11 @@ public class PageVo {
 	}
 
 	public void setPageNo(int pageNo) {
-		if(pageNo < 0) {
+		if(pageNo < 1) {
 			this.pageNo=1;
+		}
+		if(pageNo > totalPageNo) {
+			this.pageNo = totalPageNo;
 		}
 		this.pageNo = pageNo;
 	}
@@ -54,12 +68,6 @@ public class PageVo {
 		this.totalContentCount = totalContentCount;
 	}
 
-	@Override
-	public String toString() {
-		return "PageVo [pageNo=" + pageNo + ", startContentNo=" + startContentNo + ", endContentNo="
-				+ endContentNo + ", totalContentCount=" + totalContentCount + "]";
-	}
-
 	public int getContentPerPage() {
 		return contentPerPage;
 	}
@@ -67,6 +75,19 @@ public class PageVo {
 	public void setContentPerPage(int contentPerPage) {
 		this.contentPerPage = contentPerPage;
 	}
-		
+	public int getTotalPageNo() {
+		return totalPageNo;
+	}
+
+	public void setTotalPageNo(int totalPageNo) {
+		this.totalPageNo = totalPageNo;
+	}
+	
+	@Override
+	public String toString() {
+		return "PageVo [pageNo=" + pageNo + ", startContentNo=" + startContentNo + ", endContentNo=" + endContentNo
+				+ ", totalContentCount=" + totalContentCount + ", contentPerPage=" + contentPerPage + ", totalPageNo="
+				+ totalPageNo + "]";
+	}
 	
 }

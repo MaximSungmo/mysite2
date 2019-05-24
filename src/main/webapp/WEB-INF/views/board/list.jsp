@@ -1,13 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="${pageContext.servletContext.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
+<link
+	href="${pageContext.servletContext.contextPath }/assets/css/board.css"
+	rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div id="container">
@@ -15,8 +17,8 @@
 		<div id="content">
 			<div id="board">
 				<form id="search_form" action="" method="post">
-					<input type="text" id="kwd" name="kwd" value="">
-					<input type="submit" value="찾기">
+					<input type="text" id="kwd" name="kwd" value=""> <input
+						type="submit" value="찾기">
 				</form>
 				<table class="tbl-ex">
 					<tr>
@@ -26,55 +28,80 @@
 						<th>조회수</th>
 						<th>작성일</th>
 						<th>&nbsp;</th>
-					</tr>				
-					
-					<c:set var='count' value='${fn:length(list) }'/>
-					<c:forEach items ='${list }' var='vo' varStatus='status'	>
-					<tr>
-						<td>[${count - status.index}]</td>
-						<td style="text-align:left; padding-left:${20 * vo.depth }px">
-							<c:if test="${vo.depth > 0 }">	
-								<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png'>
-							</c:if>
-							<a href="${pageContext.servletContext.contextPath}/board/view?no=${vo.no}">${vo.title}</a></td>
-						<td>${vo.user_name}</td>
-						<td>${vo.hit}</td>
-						<td>${vo.reg_date}</td>
-						<c:if test="${authUser != null }">
-							<td><a href="${pageContext.servletContext.contextPath}/board/delete?no=${vo.no }" class="del">삭제</a></td>
-						</c:if>
 					</tr>
-					</c:forEach>					
+
+					<c:set var='count' value='${fn:length(list) }' />
+					<c:set var='totalContentCount' value='${pageVo.totalContentCount }' />
+					<c:forEach items='${list }' var='vo' varStatus='status'>
+						<tr>
+							<td>[${totalContentCount-(pageVo.pageNo*5)+5-status.index}]</td>
+							<td style="text-align:left; padding-left:${20 * vo.depth }px">
+								<c:if test="${vo.depth > 0 }">
+									<img
+										src='${pageContext.servletContext.contextPath }/assets/images/reply.png'>
+								</c:if> <a
+								href="${pageContext.servletContext.contextPath}/board/view?no=${vo.no}">${vo.title}</a>
+							</td>
+							<td>${vo.user_name}</td>
+							<td>${vo.hit}</td>
+							<td>${vo.reg_date}</td>
+							<c:if test="${authUser != null }">
+								<td><a
+									href="${pageContext.servletContext.contextPath}/board/delete?no=${vo.no }"
+									class="del">삭제</a></td>
+							</c:if>
+						</tr>
+					</c:forEach>
 				</table>
-				
+
 				<!-- pager 추가 -->
 				<div class="pager">
+					<fmt:parseNumber value="${((pageVo.pageNo-1)/5) }" var="pageView"
+						integerOnly="true" />
+
 					<ul>
-						<li><a href="">◀</a></li>
-						
-						
-						<li class="selected"><a href="/board/list?p=1">1</a></li>
-						<li><a href="/board/list?p=2">2</a></li>
-						<li><a href="/board/list?p=3">3</a></li>
-						<li><a href="/board/list?p=4">4</a></li>
-						<li><a href="/board/list?p=5">5</a></li>
-						
-						<li><a href="/board/list?p=6">▶</a></li>
+						<li><a
+							href="${pageContext.servletContext.contextPath}/board?p=${pageVo.pageNo-1}">◀</a></li>
+						<c:forEach var="i" begin="1" end="5" step="1">
+							<!-- 현재 페이지 셀렉티드 표시 -->
+							<c:choose>
+								<c:when test="${(pageView*5)+i > totalContentCount}">
+										<li>${(pageView*5)+i}</li>
+								</c:when>
+								<c:when test="${pageVo.pageNo eq ((pageView*5)+i)}">
+									<li class="selected"><a
+										href="${pageContext.servletContext.contextPath}/board?p=${(pageView*5)+i}">${(pageView*5)+i}</a></li>
+								</c:when>
+								<c:when test="${pageVo.pageNo ne ((pageView*5)+i)}">
+									<li><a
+										href="${pageContext.servletContext.contextPath}/board?p=${(pageView*5)+i}">${(pageView*5)+i}</a></li>
+								</c:when>	
+								
+										
+							</c:choose>
+							
+						</c:forEach>
+						<li><a
+							href="${pageContext.servletContext.contextPath}/board?p=${pageVo.pageNo+1}">▶</a></li>
+						<li><a
+							href="${pageContext.servletContext.contextPath}/board?p=${pageVo.pageNo+1}">${pageView*5 }</a></li>
+
 					</ul>
-				</div>					
-				<!-- pager 추가 -->				
-				
+				</div>
+				<!-- pager 추가 -->
+
 				<div class="bottom">
-					<a href="${pageContext.servletContext.contextPath}/board/write" id="new-book">글쓰기</a>
-				</div>				
+					<a href="${pageContext.servletContext.contextPath}/board/write"
+						id="new-book">글쓰기</a>
+				</div>
 			</div>
 		</div>
-		
+
 		<c:import url='/WEB-INF/views/includes/navigation.jsp'>
-			<c:param name="menu" value="main"/>
+			<c:param name="menu" value="board" />
 		</c:import>
-		
-		<c:import url='/WEB-INF/views/includes/footer.jsp'/>
+
+		<c:import url='/WEB-INF/views/includes/footer.jsp' />
 	</div>
 </body>
 </html>

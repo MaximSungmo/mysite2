@@ -22,6 +22,11 @@
 				</property>
 			</bean>
 		</mvc:message-converters>
+		<!-- Argument Resolver -->
+		<mvc:argument-resolvers>
+			<bean class="com.cafe24.security.AuthUesrHandlerMethodArgumentResolver"/>
+		</mvc:argument-resolvers>
+		
 	</mvc:annotation-driven>
 
 	<!-- 2. 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러  -->
@@ -67,5 +72,30 @@
 	<aop:aspectj-autoproxy />
 
 
-
+	<!-- Interceptors -->
+	<mvc:interceptors>
+		<!-- <mvc:interceptor>
+			<mvc:mapping path="/guestbook/**" /> 
+			<bean class="com.cafe24.mysite.interceptor.MyInterceptor02"/> 
+			</mvc:interceptor> -->
+		<mvc:interceptor>
+			<mvc:mapping path="/user/auth" />
+			<bean class="com.cafe24.security.AuthLoginInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/logout" />
+			<bean class="com.cafe24.security.AuthLogoutInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/user/auth" />
+			<mvc:exclude-mapping path="/user/logout" />
+			<mvc:exclude-mapping path="/assets/**" />
+			<bean class="com.cafe24.security.AuthInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	
+	<!-- the mvc resources tag does the magic -->
+	<mvc:resources mapping="/upload-images/**" location="file:/upload/" />
 </beans>

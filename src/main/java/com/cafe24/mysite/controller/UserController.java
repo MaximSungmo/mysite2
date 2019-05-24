@@ -20,6 +20,8 @@ import com.cafe24.mysite.dao.UserDao;
 import com.cafe24.mysite.exception.UserDaoException;
 import com.cafe24.mysite.service.UserService;
 import com.cafe24.mysite.vo.UserVo;
+import com.cafe24.security.Auth;
+import com.cafe24.security.AuthUser;
 
 @Controller
 @RequestMapping("/user")
@@ -79,25 +81,13 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value="/logout")
-	public String logout(HttpSession session) {
-		session.removeAttribute("authUser");
-		session.invalidate();
-		return "redirect:/";
-	}
-	
+	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.GET)
 	public String update(
-			HttpSession session, 
+			@AuthUser UserVo authUser,
 			Model model
 	) {
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if(authUser == null) {
-			return "redirect:/";
-		}
-		
-		UserVo userVo = userService.getUser(authUser.getNo());
-		System.out.println(userVo);
+		UserVo userVo = (UserVo) userService.getUser(authUser.getNo());
 		model.addAttribute("userVo", userVo);
 		return "user/update";
 	}

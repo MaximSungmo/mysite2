@@ -18,14 +18,16 @@
 		<jsp:include page="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="user">
-				<form id="join-form" name="joinForm" method="post"	action="${pageContext.servletContext.contextPath}">
+				<form id="join-form" name="joinForm" method="post"	action="${pageContext.servletContext.contextPath}/user/update">
 					<label class="block-label" for="name">이름</label>
 					<input id="name" name="name" type="text" value="${userVo.name }"> 
 					<label class="block-label" for="email">이메일</label> 
-					<input id="email" name="email" type="text" value="${userVo.email }"> 
+					<input id="email" name="email" type="text" disabled value="${userVo.email }"> 
 					<input type="button" value="id 중복체크"> 
 					<label class="block-label">패스워드</label> 
 					<input name="password" type="password" value="${userVo.password }">
+					<input name="no" type="hidden" value="${userVo.no }">
+					${ userVo}
 
 					<fieldset>
 						<legend>성별</legend>

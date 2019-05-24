@@ -15,8 +15,13 @@ public class UserVo {
 	@NotEmpty
 	private String email;
 	
+	@NotEmpty
+	@Length(min=2, max=16)
 	private String password;
+	
+	@NotEmpty
 	private String gender;
+	private String role;
 	private String joinDate;
 	
 	public UserVo() {
@@ -72,11 +77,22 @@ public class UserVo {
 	public void setJoinDate(String joinDate) {
 		this.joinDate = joinDate;
 	}
+	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + ", gender="
-				+ gender + ", joinDate=" + joinDate + "]";
+				+ gender + ", role=" + role + ", joinDate=" + joinDate + "]";
 	}
+	
+	
 	
 }
 

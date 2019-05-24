@@ -1,24 +1,29 @@
 package com.cafe24.mysite.vo;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class BoardVo {
 
 	private Long no;
 	private Long user_no;
 	private String user_name;
 
+	@NotEmpty
+	@Length(min = 2)
 	private String title;
+	@NotEmpty
+	@Length(min = 2)
 	private String contents;
+
 	private Long hit;
 	private String reg_date;
 	private Long group_no;
 	private Long order_no;
 	private Long depth;
 
-	
-	
 	private String password;
-	
-	
+
 	public String getPassword() {
 		return password;
 	}
@@ -34,7 +39,7 @@ public class BoardVo {
 	public BoardVo(Long no) {
 		this.no = no;
 	}
-	
+
 	public BoardVo(Long user_no, String title, String contents, Long group_no, Long order_no, Long depth) {
 		this.user_no = user_no;
 		this.title = title;

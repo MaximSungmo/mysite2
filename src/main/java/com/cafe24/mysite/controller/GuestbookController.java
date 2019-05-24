@@ -38,12 +38,19 @@ public class GuestbookController {
 		return "redirect:/guestbook";	
 	}
 	
+//	@RequestMapping(value="/delete", method=RequestMethod.GET)
+//	public String delete(
+//			@RequestParam(value="no") Long no,
+//			Model model
+//	) {
+//		model.addAttribute("no", no);
+//		return "guestbook/delete";
+//	}
+	
 	@RequestMapping(value="/delete", method=RequestMethod.GET)
 	public String delete(
-			@RequestParam(value="no") Long no,
-			Model model
+			@ModelAttribute(value="gvo") GuestbookVo vo
 	) {
-		model.addAttribute("no", no);
 		return "guestbook/delete";
 	}
 	
@@ -53,7 +60,6 @@ public class GuestbookController {
 			@RequestParam(value="password") String password
 	) {
 		guestbookService.deleteContent(new GuestbookVo(no, password));
-		
 		return "redirect:/guestbook";
 	}
 	
