@@ -2,10 +2,8 @@ package com.cafe24.mysite.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.hamcrest.core.IsNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,14 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.cafe24.mysite.dao.BoardDao;
 import com.cafe24.mysite.service.BoardService;
-import com.cafe24.mysite.service.GuestbookService;
 import com.cafe24.mysite.vo.BoardVo;
-import com.cafe24.mysite.vo.GuestbookVo;
 import com.cafe24.mysite.vo.PageVo;
 import com.cafe24.security.Auth;
-import com.cafe24.security.Auth.Role;
+
+
 
 @Controller
 @RequestMapping("/board")
