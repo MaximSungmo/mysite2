@@ -60,12 +60,17 @@
 						integerOnly="true" />
 
 					<ul>
-						<li><a
-							href="${pageContext.servletContext.contextPath}/board?p=${pageVo.pageNo-1}">◀</a></li>
+						<c:if test="${pageVo.pageNo==1}">
+							<li>◀</li>
+						</c:if>
+						<c:if test="${pageVo.pageNo!=1 }">
+							<li><a
+								href="${pageContext.servletContext.contextPath}/board?p=${pageVo.pageNo-1}">◀</a></li>
+						</c:if>
 						<c:forEach var="i" begin="1" end="5" step="1">
 							<!-- 현재 페이지 셀렉티드 표시 -->
 							<c:choose>
-								<c:when test="${(pageView*5)+i > totalContentCount}">
+								<c:when test="${(pageView*5)+i > pageVo.totalPageNo}">
 										<li>${(pageView*5)+i}</li>
 								</c:when>
 								<c:when test="${pageVo.pageNo eq ((pageView*5)+i)}">
@@ -76,16 +81,16 @@
 									<li><a
 										href="${pageContext.servletContext.contextPath}/board?p=${(pageView*5)+i}">${(pageView*5)+i}</a></li>
 								</c:when>	
-								
-										
 							</c:choose>
 							
 						</c:forEach>
-						<li><a
-							href="${pageContext.servletContext.contextPath}/board?p=${pageVo.pageNo+1}">▶</a></li>
-						<li><a
-							href="${pageContext.servletContext.contextPath}/board?p=${pageVo.pageNo+1}">${pageView*5 }</a></li>
-
+						<c:if test="${pageVo.totalPageNo <= pageVo.pageNo}">
+							<li>▶</li>
+						</c:if>
+						<c:if test="${pageVo.totalPageNo > pageVo.pageNo}">
+							<li><a
+								href="${pageContext.servletContext.contextPath}/board?p=${pageVo.pageNo+1}">▶</a></li>
+						</c:if>
 					</ul>
 				</div>
 				<!-- pager 추가 -->
