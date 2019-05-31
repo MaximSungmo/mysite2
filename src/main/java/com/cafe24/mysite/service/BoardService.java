@@ -33,7 +33,10 @@ public class BoardService {
 			vo.setDepth(0L);
 			vo.setOrder_no(0L);
 			vo.setDepth(0L);
+		}else if(vo.getDepth()!=0) {
+			vo.setDepth(1L);
 		}
+		System.out.println("db 들가기 전 vo : "+ vo);
 		
 		return boardDao.insert(vo);
 	}

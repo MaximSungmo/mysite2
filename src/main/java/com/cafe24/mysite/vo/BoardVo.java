@@ -49,13 +49,10 @@ public class BoardVo {
 		this.depth = depth;
 	}
 
-	public BoardVo(Long user_no, String title, String contents) {
-		this.user_no = user_no;
+	public BoardVo(Long no, String title, String contents) {
+		this.user_no = no;
 		this.title = title;
 		this.contents = contents;
-		this.group_no = 0L;
-		this.order_no = 0L;
-		this.depth = 0L;
 	}
 
 	public String getUser_name() {
@@ -90,11 +87,11 @@ public class BoardVo {
 		this.title = title;
 	}
 
-	public String getContents() {
+	public String getcontents() {
 		return contents;
 	}
 
-	public void setContents(String contents) {
+	public void setcontents(String contents) {
 		this.contents = contents;
 	}
 

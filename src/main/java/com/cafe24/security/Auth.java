@@ -5,8 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import javax.management.relation.Role;
-
 /* 타입은 클래스 메소드는 클래스 내 메소드에서 사용할 수 있다.*/ 
 @Target( {ElementType.TYPE,ElementType.METHOD})
 /*메소드에 붙여놓고 컴파일하는 것, Runtime  Override같은 경우는 source*/

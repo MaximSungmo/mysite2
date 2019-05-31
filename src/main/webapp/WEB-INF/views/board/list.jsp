@@ -16,9 +16,9 @@
 		<jsp:include page="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="" method="post">
-					<input type="text" id="kwd" name="kwd" value=""> <input
-						type="submit" value="찾기">
+				<form id="search_form" action="${pageContext.servletContext.contextPath}/board/search" method="post">
+					<input type="text" id="kwd" name="kwd" value="">${kwd } 
+					<input type="submit" value="찾기">
 				</form>
 				<table class="tbl-ex">
 					<tr>
