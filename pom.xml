@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.cafe24</groupId>
-	<artifactId>mysite2</artifactId>
+	<artifactId>mysite3</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -43,7 +43,7 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
-		<!-- spring Aspect -->
+		<!-- Spring Aspect -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
@@ -110,6 +110,23 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.9.8</version>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-parameter-names</artifactId>
+			<version>2.9.8</version>
+		</dependency>
+
+		<!-- common fileupload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.4</version>
+		</dependency>
 
 		<!-- Logback -->
 		<dependency>
@@ -123,7 +140,19 @@
 			<version>${logback.version}</version>
 		</dependency>
 
-
+		<!-- Servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.0</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<profiles>
@@ -157,10 +186,10 @@
 			<dependencies>
 				<!-- Servlet -->
 				<dependency>
-				    <groupId>javax.servlet</groupId>
-				    <artifactId>javax.servlet-api</artifactId>
-				    <version>3.0.1</version>
-				    <scope>provided</scope>
+					<groupId>javax.servlet</groupId>
+					<artifactId>javax.servlet-api</artifactId>
+					<version>3.0.1</version>
+					<scope>provided</scope>
 				</dependency>
 				<dependency>
 					<groupId>javax.servlet.jsp</groupId>
@@ -171,6 +200,7 @@
 			</dependencies>
 		</profile>
 	</profiles>
+
 
 
 	<build>
