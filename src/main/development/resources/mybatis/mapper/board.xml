@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+
+	<select id="getList" resultType="boardvo" parameterType="int">
+		<![CDATA[
+			select board.no, member.no as member_no, member.name as member_name, board.title, board.contents, board.hit, board.reg_date, board.group_no, board.order_no, board.depth 
+			from board, member 
+		]]> 
+		<if test="kwd!=null">
+		<![CDATA[
+		
+			where board.member_no=member.no and (board.title like %#{kwd}% or board.contents like %#{kwd}%)
+		]]>
+		</if>
+		<if test="kwd==null">
+		<![CDATA[
+		
+			where board.member_no=member.no
+		]]>
+		</if>
+		<![CDATA[
+			order by group_no DESC, order_no ASC
+			limit #{startContentNo}, #{contentPerPage};
+		]]>
+	</select>
+
+	<select id="getTotalContentCount" resultType="int">
+		<![CDATA[
+			select count(no) as totalContentCount from board;
+		]]>
+	</select>
+
+
+	<insert id="insert" parameterType="boardvo">
+		<![CDATA[		
+			insert into board values(null, #{member_no}, #{title}, #{contents}, 1, now(), (select (max(group_no)+1) from board b), (select(max(order_no)+1) from board c where group_no=#{group_no}), 0);			
+		]]>
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[ 
+			select last_insert_id()
+			]]>
+		</selectKey>
+	</insert>
+
+	<update id="updatecontent" parameterType="boardvo">		
+		<![CDATA[
+			update board set title = #{title}, contents = #{contents} where no = #{no};
+		]]>
+	</update>
+
+	<select id="viewcontent" parameterType="boardvo"
+		resultType="boardvo">
+	<![CDATA[ 
+		select no, member_no, title, contents, hit, reg_date, group_no, order_no, depth from board where no = #{no};
+	]]>
+
+	</select>
+
+
+	<delete id="delete" parameterType="boardvo">
+		<![CDATA[
+			delete from board where no=#{no}
+		]]>
+	</delete>
+
+	<select id="searchContentsTitle" parameterType="string"	resultType="boardvo">
+		<![CDATA[ 
+			select * from board where title like '%#{kwd}%' or contents like '%#{kwd}%';
+		]]>
+	</select>
+
+</mapper>

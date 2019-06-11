@@ -25,18 +25,18 @@
 	</context:component-scan>
 
 	 
-	<bean id="dataSource_pg" class="org.apache.commons.dbcp.BasicDataSource">
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="org.postgresql.Driver" />
 		<property name="url" value="jdbc:postgresql://192.168.1.44:5432/webdb" />
 		<property name="username" value="webdb" />
 		<property name="password" value="webdb" />
 	</bean>
-	<bean id="sqlSessionFactory_pg" class="org.mybatis.spring.SqlSessionFactoryBean"> 
-		<property name="dataSource" ref="dataSource_pg"/> 
-		<property name="configLocation" value="classpath:mybatis/configuration_pg.xml" /> 
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+		<property name="dataSource" ref="dataSource"/> 
+		<property name="configLocation" value="classpath:mybatis/configuration.xml" /> 
 	</bean>
-	<bean id="sqlSession_pg" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg index="0" ref="sqlSessionFactory_pg" />
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
 	
 	
