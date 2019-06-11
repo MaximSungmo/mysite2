@@ -12,9 +12,9 @@
     </typeAliases>	
     
 	<mappers>
-		<mapper resource="mybatis/mapper/user.xml" />
-		<mapper resource="mybatis/mapper/guestbook.xml" />
-		<mapper resource="mybatis/mapper/board.xml" />
+		<mapper resource="mybatis/mapper_pg/user.xml" />
+		<mapper resource="mybatis/mapper_pg/guestbook.xml" />
+		<mapper resource="mybatis/mapper_pg/board.xml" />
 	</mappers>
 	
 </configuration>

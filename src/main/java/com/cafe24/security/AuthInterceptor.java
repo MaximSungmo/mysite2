@@ -19,7 +19,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		if(handler instanceof HandlerMethod == false) {
 			return true;
 		}
-		
+		request.getSession();
 		//2. casting
 		HandlerMethod handlerMethod = (HandlerMethod)handler;
 			
