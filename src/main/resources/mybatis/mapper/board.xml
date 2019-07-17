@@ -6,23 +6,11 @@
 		<![CDATA[
 			select board.no, user.no as user_no, user.name as user_name, board.title, board.contents, board.hit, board.reg_date, board.group_no, board.order_no, board.depth 
 			from board, user 
-		]]> 
-		<if test="kwd!=null">
-		<![CDATA[
-		
-			where board.user_no=user.no and (board.title like %#{kwd}% or board.contents like %#{kwd}%)
-		]]>
-		</if>
-		<if test="kwd==null">
-		<![CDATA[
-		
 			where board.user_no=user.no
-		]]>
-		</if>
-		<![CDATA[
 			order by group_no DESC, order_no ASC
 			limit #{startContentNo}, #{contentPerPage};
-		]]>
+		]]> 
+		
 	</select>
 
 	<select id="getTotalContentCount" resultType="int">

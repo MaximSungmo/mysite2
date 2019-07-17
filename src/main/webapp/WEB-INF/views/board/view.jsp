@@ -29,9 +29,6 @@
 						<td>
 							<div class="view-content">
 								${vo.contents }
-								${vo.group_no }
-								${vo.order_no }
-								${vo.depth }
 							</div>
 						</td>
 					</tr>
@@ -40,7 +37,6 @@
 					<a href="${pageContext.servletContext.contextPath}/board?p=1">글목록</a>
 					<a href="${pageContext.servletContext.contextPath}/board/modify?no=${vo.no}">글수정</a>
 					<a href="${pageContext.servletContext.contextPath}/board/write?no=${vo.no}&group_no=${vo.group_no}&order_no=${vo.order_no}&depth=${vo.depth}">답글 달기</a>
-					
 				</div>
 			</div>
 		</div>

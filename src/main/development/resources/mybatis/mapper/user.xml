@@ -5,36 +5,31 @@
 
 	<insert id="insert" parameterType="uservo">
 		<![CDATA[
-			 insert into user values(null, #{name }, #{email }, #{password }, #{gender }, now())	 
+			 insert into member values(default, #{name }, #{email }, #{password }, #{gender }, now()) returning no	 
 		]]>
-		<selectKey keyProperty="no" resultType="long" order="AFTER">
-			<![CDATA[ 
-			select last_insert_id()
-			]]>
-		</selectKey>
 	</insert>
 	
 	<select id="getByNo" resultType="uservo" parameterType='long'>
 		<![CDATA[
-			select no, name, email, password, gender from user where no = #{no }
+			select no, name, email, password, gender from member where no = #{no }
 		]]>
 	</select>
 	
 	<select id="getByEmail" resultType="uservo" parameterType='string'>
 		<![CDATA[
-			select no, name, email, password, gender from user where email = #{email }
+			select no, name, email, password, gender from member where email = #{email }
 		]]>
 	</select>
 	
 	<select id="getByEmailAndPassword" resultType="uservo" parameterType='map'>
 		<![CDATA[
-			select no, name from user where email=#{email} and password=#{password}
+			select no, name from member where email=#{email} and password=#{password}
 		]]>
 	</select>
 	
 	<update id="update" parameterType="uservo">		
 		<![CDATA[
-			update user	set name=#{name},
+			update member	set name=#{name},
 		]]>
 		
 		<if test="password != ''">

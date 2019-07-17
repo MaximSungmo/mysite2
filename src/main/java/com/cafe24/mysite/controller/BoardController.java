@@ -26,7 +26,7 @@ public class BoardController {
 	private BoardService boardService;
 
 	@RequestMapping("")
-	public String list(@RequestParam(value = "p") int p, @RequestParam(value = "kwd") String kwd, Model model) {
+	public String list(@RequestParam(value = "p") int p, Model model) {
 		final int CONTENT_PER_PAGE = 5;
 		int totalCount = boardService.getTotalContentCount();
 		PageVo pageVo = new PageVo(p, CONTENT_PER_PAGE, totalCount);
@@ -45,8 +45,8 @@ public class BoardController {
 
 	@Auth(role = Auth.Role.USER)
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public String write(@ModelAttribute(value = "boardvo") BoardVo boardvo) {
-		System.out.println(boardvo);
+	public String write(@ModelAttribute BoardVo boardVo) {
+		System.out.println(boardVo);
 		return "/board/write";
 	}
 
@@ -70,17 +70,46 @@ public class BoardController {
 //	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String write(@ModelAttribute(value = "boardvo") @Valid BoardVo boardVo, BindingResult result, Model model) {
+	public String write(
+			@ModelAttribute(value = "boardvo") @Valid BoardVo boardVo, 
+			BindingResult result, 
+			Model model) {
 
 		if (result.hasErrors()) {
 			model.addAllAttributes(result.getModel());
-			return "user/write";
+			return "board/write";
 		}
+		
 		boardService.writeContent(boardVo);
-		Long no = boardVo.getNo();
 		System.out.println(boardVo);
 		return "redirect:/board/view?no=" + boardVo.getNo();
 	}
+	
+	@Auth(role = Auth.Role.USER)
+	@RequestMapping(value = "/reply", method = RequestMethod.GET)
+	public String reply(@ModelAttribute BoardVo boardVo) {
+		System.out.println(boardVo);
+		return "/board/write";
+	}
+
+	
+	@RequestMapping(value = "/reply", method = RequestMethod.POST)
+	public String reply(
+			@ModelAttribute(value = "boardvo") @Valid BoardVo boardVo, 
+			BindingResult result, 
+			Model model) {
+
+		if (result.hasErrors()) {
+			model.addAllAttributes(result.getModel());
+			return "board/write";
+		}
+
+		boardService.replyContent(boardVo);
+		System.out.println(boardVo);
+		return "redirect:/board/view?no=" + boardVo.getNo();
+	}
+	
+	
 
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public String view(@RequestParam(value = "no") Long no, Model model) {

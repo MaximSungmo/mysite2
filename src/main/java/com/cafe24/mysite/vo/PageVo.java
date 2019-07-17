@@ -8,6 +8,8 @@ public class PageVo {
 	private int totalContentCount;
 	private int contentPerPage;
 	private int totalPageNo;
+	private String kwd;
+	
 
 	public PageVo(int pageNo, int contentPerPage, int totalContentCount) {
 		this.contentPerPage = contentPerPage; 
@@ -88,6 +90,14 @@ public class PageVo {
 		return "PageVo [pageNo=" + pageNo + ", startContentNo=" + startContentNo + ", endContentNo=" + endContentNo
 				+ ", totalContentCount=" + totalContentCount + ", contentPerPage=" + contentPerPage + ", totalPageNo="
 				+ totalPageNo + "]";
+	}
+
+	public String getKwd() {
+		return kwd;
+	}
+
+	public void setKwd(String kwd) {
+		this.kwd = kwd;
 	}
 	
 }

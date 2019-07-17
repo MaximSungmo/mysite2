@@ -7,11 +7,14 @@ public class BoardVo {
 
 	private Long no;
 	private Long user_no;
+	private Long member_no;
+
 	private String user_name;
 
 	@NotEmpty
 	@Length(min = 2)
 	private String title;
+	
 	@NotEmpty
 	@Length(min = 2)
 	private String contents;
@@ -140,6 +143,14 @@ public class BoardVo {
 		return "BoardVo [no=" + no + ", user_no=" + user_no + ", title=" + title + ", contents=" + contents + ", hit="
 				+ hit + ", reg_date=" + reg_date + ", group_no=" + group_no + ", order_no=" + order_no + ", depth="
 				+ depth + "]";
+	}
+
+	public Long getMember_no() {
+		return member_no;
+	}
+
+	public void setMember_no(Long member_no) {
+		this.member_no = member_no;
 	}
 
 }

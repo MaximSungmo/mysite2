@@ -5,23 +5,10 @@
 	<select id="getList" resultType="boardvo" parameterType="int">
 		<![CDATA[
 			select board.no, member.no as member_no, member.name as member_name, board.title, board.contents, board.hit, board.reg_date, board.group_no, board.order_no, board.depth 
-			from board, member 
-		]]> 
-		<if test="kwd!=null">
-		<![CDATA[
-		
-			where board.member_no=member.no and (board.title like %#{kwd}% or board.contents like %#{kwd}%)
-		]]>
-		</if>
-		<if test="kwd==null">
-		<![CDATA[
-		
+			from board, member 		
 			where board.member_no=member.no
-		]]>
-		</if>
-		<![CDATA[
 			order by group_no DESC, order_no ASC
-			limit #{startContentNo}, #{contentPerPage};
+			limit #{contentPerPage} offset #{startContentNo} ;
 		]]>
 	</select>
 
@@ -33,20 +20,28 @@
 
 
 	<insert id="insert" parameterType="boardvo">
-		<![CDATA[		
-			insert into board values(null, #{member_no}, #{title}, #{contents}, 1, now(), (select (max(group_no)+1) from board b), (select(max(order_no)+1) from board c where group_no=#{group_no}), 0);			
-		]]>
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
-			<![CDATA[ 
-			select last_insert_id()
-			]]>
+		<![CDATA[		
+			insert into board values(default, #{user_no}, #{title}, #{contents}, 1, now(), coalesce((select (max(group_no)+1) from board b),1,(select (max(group_no)+1) from board b)), 1, 0) returning no 
+		]]>
 		</selectKey>
 	</insert>
+	
+	<insert id="reply_insert" parameterType="boardvo">
+		<![CDATA[
+				
+			insert into board values(default, #{user_no},#{title}, #{contents}, 1, now(), #{group_no}, (select (max(order_no)+1) from board where group_no=#{group_no}), #{depth}+1) returning no;
+		]]>
+	</insert>
+
 
 	<update id="updatecontent" parameterType="boardvo">		
 		<![CDATA[
 			update board set title = #{title}, contents = #{contents} where no = #{no};
 		]]>
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+  			SELECT currval('member_seq');
+		</selectKey>
 	</update>
 
 	<select id="viewcontent" parameterType="boardvo"
@@ -64,10 +59,5 @@
 		]]>
 	</delete>
 
-	<select id="searchContentsTitle" parameterType="string"	resultType="boardvo">
-		<![CDATA[ 
-			select * from board where title like '%#{kwd}%' or contents like '%#{kwd}%';
-		]]>
-	</select>
 
 </mapper>

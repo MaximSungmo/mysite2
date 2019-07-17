@@ -34,8 +34,13 @@ public class BoardDao {
 		return result;
 	};
 	
-	public Boolean insert(BoardVo vo) {
+	public boolean insert(BoardVo vo) {
 		int count = sqlSession.insert("board.insert", vo);
+		return 1== count; 
+	};
+	
+	public Boolean reply_insert(BoardVo vo) {
+		int count = sqlSession.insert("board.reply_insert", vo);
 		return 1== count;
 	};
 

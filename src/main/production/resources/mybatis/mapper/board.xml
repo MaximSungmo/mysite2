@@ -9,13 +9,11 @@
 		]]> 
 		<if test="kwd!=null">
 		<![CDATA[
-		
 			where board.user_no=user.no and (board.title like %#{kwd}% or board.contents like %#{kwd}%)
 		]]>
 		</if>
 		<if test="kwd==null">
 		<![CDATA[
-		
 			where board.user_no=user.no
 		]]>
 		</if>

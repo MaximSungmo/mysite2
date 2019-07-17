@@ -25,23 +25,9 @@
 			<div id="board">
 				<form:form
 					modelAttribute="boardVo"
-					ID="board-form"
-					name="boardForm"
 					method="post" 
-					action="${pageContext.servletContext.contextPath}/board/write">
-					<spring:hasBindErrors name="boardVo">
-						<c:if test="${errors.hasFiledErros('name') }">
-							<p
-								style="font-weight: bold; color: red; text-align: left; padding:0; margin:0;">
-								<strong style="color: red"> 
-									<spring:message
-											code="${errors.getFieldError( 'name' ).codes[0] }"
-											text="${errors.getFieldError( 'name' ).defaultMessage }" />
-								</strong>
-							</p>
-						</c:if>
-					</spring:hasBindErrors>
-					
+					action="${pageContext.servletContext.contextPath}/board/reply">			
+
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>
@@ -49,22 +35,21 @@
 							<td><input type="hidden" name="group_no" value="${boardVo.group_no }"></td>
 							<td><input type="hidden" name="order_no" value="${boardVo.order_no }"></td>
 							<td><input type="hidden" name="depth" value="${boardVo.depth }"></td>
-						
+							<td><input type="hidden" name="hit" value="0"></td>
+							
 						</tr>
+						
 						<tr>
 							<td class="label">제목</td>
-							<td><input type="text" name="title" value=""></td>
-							<form:password path="title"/>
+							<td><form:input path="title"/></td>
 						</tr>
+						
 						<tr>
 							<td class="label">내용</td>
-							<td><textarea id="contents" name="contents"
-									style="width: 100%; border: 1; overflow: visible; text-overflow: ellipsis;"
-									rows=30>${boardVo.contents}
-								</textarea>
+							<td><form:textarea path="contents" rows="30" cols="30"/>
 							</td>
-							<form:password path="contents"/>	
 						</tr>
+						
 					</table>
 					<div class="bottom">
 						<a href="${pageContext.servletContext.contextPath}/board">취소</a>

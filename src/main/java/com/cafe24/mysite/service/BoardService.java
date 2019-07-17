@@ -29,17 +29,14 @@ public class BoardService {
 	}
 
 	public Boolean writeContent(BoardVo vo) {
-		if(vo.getGroup_no()==null) {
-			vo.setDepth(0L);
-			vo.setOrder_no(0L);
-			vo.setDepth(0L);
-		}else if(vo.getDepth()!=0) {
-			vo.setDepth(1L);
-		}
 		System.out.println("db 들가기 전 vo : "+ vo);
-		
 		return boardDao.insert(vo);
 	}
+	public Boolean replyContent(BoardVo vo) {
+		System.out.println("reply+ db 들가기 전 vo : "+ vo);
+		return boardDao.reply_insert(vo);
+	}
+	
 	public boolean deleteContent(BoardVo boardVo) {
 		return boardDao.delete(boardVo);
 	}
